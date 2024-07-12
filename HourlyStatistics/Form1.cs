@@ -36,7 +36,7 @@ namespace HourlyStatistics
             return count;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void request_Click(object sender, EventArgs e)
         {
             ip.Enabled = false; 
             date.Enabled = false;
@@ -44,6 +44,11 @@ namespace HourlyStatistics
 
 
 
+
+        }
+
+        private void clear_Click(object sender, EventArgs e)
+        {
 
         }
     }

@@ -32,13 +32,16 @@
             this.ip = new System.Windows.Forms.TextBox();
             this.date = new System.Windows.Forms.TextBox();
             this.request = new System.Windows.Forms.Button();
-            this.listView1 = new System.Windows.Forms.ListView();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.clear = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.clear);
             this.groupBox1.Controls.Add(this.request);
             this.groupBox1.Controls.Add(this.date);
             this.groupBox1.Controls.Add(this.ip);
@@ -51,7 +54,7 @@
             // ip
             // 
             this.ip.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ip.Location = new System.Drawing.Point(15, 16);
+            this.ip.Location = new System.Drawing.Point(11, 16);
             this.ip.Name = "ip";
             this.ip.Size = new System.Drawing.Size(200, 31);
             this.ip.TabIndex = 1;
@@ -61,7 +64,7 @@
             // date
             // 
             this.date.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.date.Location = new System.Drawing.Point(292, 16);
+            this.date.Location = new System.Drawing.Point(228, 16);
             this.date.Name = "date";
             this.date.Size = new System.Drawing.Size(200, 31);
             this.date.TabIndex = 2;
@@ -71,22 +74,13 @@
             // request
             // 
             this.request.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.request.Location = new System.Drawing.Point(602, 14);
+            this.request.Location = new System.Drawing.Point(444, 14);
             this.request.Name = "request";
-            this.request.Size = new System.Drawing.Size(163, 34);
+            this.request.Size = new System.Drawing.Size(153, 34);
             this.request.TabIndex = 3;
             this.request.Text = "Request";
             this.request.UseVisualStyleBackColor = true;
-            this.request.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // listView1
-            // 
-            this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(12, 70);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(776, 83);
-            this.listView1.TabIndex = 1;
-            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.request.Click += new System.EventHandler(this.request_Click);
             // 
             // progressBar1
             // 
@@ -95,18 +89,38 @@
             this.progressBar1.Size = new System.Drawing.Size(776, 34);
             this.progressBar1.TabIndex = 2;
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(12, 67);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(776, 90);
+            this.dataGridView1.TabIndex = 3;
+            // 
+            // clear
+            // 
+            this.clear.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.clear.Location = new System.Drawing.Point(616, 13);
+            this.clear.Name = "clear";
+            this.clear.Size = new System.Drawing.Size(148, 34);
+            this.clear.TabIndex = 4;
+            this.clear.Text = "Clear";
+            this.clear.UseVisualStyleBackColor = true;
+            this.clear.Click += new System.EventHandler(this.clear_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 208);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.progressBar1);
-            this.Controls.Add(this.listView1);
             this.Controls.Add(this.groupBox1);
             this.Name = "Form1";
             this.Text = "Form1";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -117,8 +131,9 @@
         private System.Windows.Forms.TextBox ip;
         private System.Windows.Forms.Button request;
         private System.Windows.Forms.TextBox date;
-        private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Button clear;
     }
 }
 
