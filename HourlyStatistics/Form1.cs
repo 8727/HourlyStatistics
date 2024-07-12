@@ -1,53 +1,164 @@
 ﻿using System;
+using Microsoft.WindowsAPICodePack.Dialogs;
+using System.Data;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Net.NetworkInformation;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Web.Script.Serialization;
 using System.Windows.Forms;
+
 
 namespace HourlyStatistics
 {
-    public partial class Form1 : Form
+    public partial class Ui : Form
     {
-        public Form1()
+        CommonOpenFileDialog dialog = new CommonOpenFileDialog();
+
+        public Ui()
         {
             InitializeComponent();
-        }
-
-        int requestCount(string data, string IP)
-        {
-            int count = 0;
-
-            //var hour = dateTime.getHours();
-            //hour = ("0" + hour).slice(-2);
-            //var endDate = dateTime.toDateString() + "T" + hour + "%3A00%3A00%2B03%3A00";
-
-            //dateTime.setHours(dateTime.getHours() - 1);
-            //hour = dateTime.getHours();
-            //hour = ("0" + hour).slice(-2);
-            //var strDate = dateTime.toDateString() + "T" + hour + "%3A00%3A00%2B03%3A00";
-
-            //string url = $@"http://{IP}/archive/tracks/count?dateStart={strDate}&dateEnd={endDate}";
-
-
-            return count;
+            date.Text = DateTime.Now.AddDays(-1).ToString("yyyy-MM-dd");
+            dataGridView1.Rows.Clear();
         }
 
         private void request_Click(object sender, EventArgs e)
         {
-            ip.Enabled = false; 
+            ip.Enabled = false;
             date.Enabled = false;
+            request.Enabled = false;
+            clear.Enabled = false;
+            save.Enabled = false;
 
+            progressBar1.Value = 0;
 
+            int rows = dataGridView1.Rows.Count;
+            //label1.Text = rows.ToString();
 
+            DateTime scheduleDate;
+            if (DateTime.TryParseExact(date.Text, "yyyy-MM-dd", DateTimeFormatInfo.InvariantInfo, DateTimeStyles.None, out scheduleDate))
+            {
+                DateTime myDate = DateTime.ParseExact(date.Text + " 00:00:00", "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
+                if (myDate < DateTime.Now) 
+                {
+                    Match match = Regex.Match(ip.Text, @"\b((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\.)){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))\b");
+                    if (match.Success)
+                    {
+                        string factorJson = "";
+                        string factoryNumber = "";
+                        string serialNumber = "";
+                        PingReply pr = new Ping().Send(ip.Text, 5000);
+                        if (pr.Status == IPStatus.Success)
+                        {
+                            try
+                            {
+                                HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create($"http://{ip.Text}/unitinfo/api/unitinfo");
+                                HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
+                                using (StreamReader stream = new StreamReader(resp.GetResponseStream(), Encoding.UTF8))
+                                {
+                                    factorJson = stream.ReadToEnd();
+                                    var datajson = new JavaScriptSerializer().Deserialize<dynamic>(factorJson);
+                                    factoryNumber = datajson["unit"]["factoryNumber"];
+                                    serialNumber = datajson["certificate"]["serialNumber"];
+                                    dataGridView1.Rows[rows-1].Cells[0].Value = serialNumber + " " + factoryNumber + " " + ip.Text;
+                                }
+                            }
+                            catch
+                            {
+                                MessageBox.Show("Not a factor.", "IP unavailable.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+                            string strDate = date.Text;
+                            string endDate = date.Text;
+                            string str = "00";
+                            string end = "01";
 
+                            for (int i = 0; i < 24; i++)
+                            {
+                                str = i.ToString("00");
+                                if (i < 23)
+                                {
+                                    end = (i + 1).ToString("00");
+                                }
+                                else
+                                {
+                                    DateTime newdate = DateTime.ParseExact(date.Text, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                                    endDate = newdate.AddDays(1).ToString("yyyy-MM-dd");
+                                    end = "00";
+                                }
 
+                                string url = $"http://{ip.Text}/archive/tracks/count?dateStart={strDate}T{str}%3A00%3A00%2B05%3A00&dateEnd={endDate}T{end}%3A00%3A00%2B05%3A00";
+                                HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(url);
+                                HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
+                                using (StreamReader stream = new StreamReader(resp.GetResponseStream(), Encoding.UTF8))
+                                {
+                                    factorJson = stream.ReadToEnd();
+                                    var datajson = new JavaScriptSerializer().Deserialize<dynamic>(factorJson);
+                                    dataGridView1.Rows[rows-1].Cells[1+i].Value = datajson["count"];
+                                    progressBar1.PerformStep();
+                                }
+                            }
+                            dataGridView1.Rows.Add();
+                        }
+                        else
+                        {
+                            MessageBox.Show("The specified IP address is unavailable.", "IP unavailable.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Invalid IP address specified.", "Invalid IP.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("The date must be correct.", "Invalid Date.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Invalid date format.", "Invalid Date.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+            ip.Enabled = true;
+            date.Enabled = true;
+            request.Enabled = true;
+            clear.Enabled = true;
+            save.Enabled = true;
         }
 
         private void clear_Click(object sender, EventArgs e)
         {
-
+            dataGridView1.Rows.Clear();
         }
 
         private void save_Click(object sender, EventArgs e)
-        {
+        {     
+            dialog.IsFolderPicker = true;
+            dialog.Multiselect = true;
 
+            if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+            {
+                FileInfo fil = new FileInfo(dialog.FileName + "\\" + date.Text + ".csv");
+
+                using (StreamWriter sw = fil.AppendText())
+                {
+                    var headers = dataGridView1.Columns.Cast<DataGridViewColumn>();
+                    sw.WriteLine(string.Join(",", headers.Select(column => "\"" + column.HeaderText + "\"").ToArray()));
+                    sw.Close();
+                }
+                using (StreamWriter sw = fil.AppendText())
+                {
+                    foreach (DataGridViewRow row in dataGridView1.Rows)
+                    {
+                        var cells = row.Cells.Cast<DataGridViewCell>();
+                        sw.WriteLine(string.Join(",", cells.Select(cell => "\"" + cell.Value + "\"").ToArray()));
+                    }                    
+                    sw.Close();
+                }
+            }
         }
     }
 }
