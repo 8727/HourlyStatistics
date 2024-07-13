@@ -28,23 +28,34 @@ namespace HourlyStatistics
         {
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"\settings.xml"))
             {
-                XmlTextReader reader = new XmlTextReader(AppDomain.CurrentDomain.BaseDirectory + @"\settings.xml");
                 new Thread(() =>
                 {
-                    while (reader.Read())
+                    XmlDocument xDoc = new XmlDocument();
+                    xDoc.Load(AppDomain.CurrentDomain.BaseDirectory + @"\settings.xml");
+                    XmlElement xRoot = xDoc.DocumentElement;
+                    if (xRoot != null)
                     {
-                        switch (reader.NodeType)
+                        foreach (XmlElement xnode in xRoot)
                         {
-                            case XmlNodeType.Text:
-                                ip.Text = reader.Value;
-                                getFactor();
-                                break;
+                            if (xnode.Name == "ip")
+                            {
+                                ip.Text = xnode.InnerText;
+                            }
+                            if (xnode.Name == "date")
+                            {
+                                date.Text = xnode.InnerText;
+                                continue;
+                            }
+                            getFactor();
                         }
+                        search = true;
                     }
-                    search = true;
                 }).Start();
             }
-
+            else
+            {
+                search = true;
+            }
         }
 
         void getFactor()
@@ -222,5 +233,28 @@ namespace HourlyStatistics
             }
         }
 
+        void ip_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                getFactor();
+            }
+        }
+
+        void date_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                getFactor();
+            }
+        }
+
+        void Ui_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                getFactor();
+            }
+        }
     }
 }

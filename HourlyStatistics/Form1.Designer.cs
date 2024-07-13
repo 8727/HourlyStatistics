@@ -127,6 +127,7 @@
             this.date.TabIndex = 2;
             this.date.Text = "31.12.2024";
             this.date.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.date.KeyDown += new System.Windows.Forms.KeyEventHandler(this.date_KeyDown);
             // 
             // ip
             // 
@@ -139,6 +140,7 @@
             this.ip.TabIndex = 1;
             this.ip.Text = "10.5.127.x";
             this.ip.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.ip.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ip_KeyDown);
             // 
             // progressBar1
             // 
@@ -415,6 +417,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Hourly Statistics";
             this.Shown += new System.EventHandler(this.Ui_Shown);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Ui_KeyDown);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
