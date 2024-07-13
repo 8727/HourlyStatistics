@@ -107,16 +107,22 @@ namespace HourlyStatistics
                                     endDate = newdate.AddDays(1).ToString("yyyy-MM-dd");
                                     end = "00";
                                 }
-
-                                string url = $"http://{ip.Text}/archive/tracks/count?dateStart={strDate}T{str}%3A00%3A00{factorZ}&dateEnd={endDate}T{end}%3A00%3A00{factorZ}";
-                                HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(url);
-                                HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
-                                using (StreamReader stream = new StreamReader(resp.GetResponseStream(), Encoding.UTF8))
+                                try
                                 {
-                                    string factorJson = stream.ReadToEnd();
-                                    var datajson = new JavaScriptSerializer().Deserialize<dynamic>(factorJson);
-                                    dataGridView1.Rows[rowNumbe].Cells[1+i].Value = datajson["count"];
-                                    progressBar1.PerformStep();
+                                    string url = $"http://{ip.Text}/archive/tracks/count?dateStart={strDate}T{str}%3A00%3A00{factorZ}&dateEnd={endDate}T{end}%3A00%3A00{factorZ}";
+                                    HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(url);
+                                    HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
+                                    using (StreamReader stream = new StreamReader(resp.GetResponseStream(), Encoding.UTF8))
+                                    {
+                                        string factorJson = stream.ReadToEnd();
+                                        var datajson = new JavaScriptSerializer().Deserialize<dynamic>(factorJson);
+                                        dataGridView1.Rows[rowNumbe].Cells[1+i].Value = datajson["count"];
+                                        progressBar1.PerformStep();
+                                    }
+                                }
+                                catch
+                                {
+                                    MessageBox.Show("Factor request error not responding.", "Timed out.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                 }
                             }
                         }
