@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.WindowsAPICodePack.Dialogs;
 using System.Data;
 using System.Globalization;
 using System.IO;
@@ -12,11 +11,11 @@ using System.Web.Script.Serialization;
 using System.Windows.Forms;
 
 
+
 namespace HourlyStatistics
 {
     public partial class Ui : Form
     {
-        CommonOpenFileDialog dialog = new CommonOpenFileDialog();
 
         public Ui()
         {
@@ -32,7 +31,7 @@ namespace HourlyStatistics
             request.Enabled = false;
             clear.Enabled = false;
             save.Enabled = false;
-
+            
             progressBar1.Value = 0;
 
             DateTime scheduleDate;
@@ -60,6 +59,7 @@ namespace HourlyStatistics
                                     string factoryNumber = datajson["unit"]["factoryNumber"];
                                     string serialNumber = datajson["certificate"]["serialNumber"];
                                     dataGridView1.Rows[rowNumbe].Cells[0].Value = serialNumber + " " + factoryNumber + " " + ip.Text;
+                                    dataGridView1.Rows[rowNumbe].Cells[1].Value = date.Text;
                                 }
                             }
                             catch
@@ -116,7 +116,7 @@ namespace HourlyStatistics
                                     {
                                         string factorJson = stream.ReadToEnd();
                                         var datajson = new JavaScriptSerializer().Deserialize<dynamic>(factorJson);
-                                        dataGridView1.Rows[rowNumbe].Cells[1+i].Value = datajson["count"];
+                                        dataGridView1.Rows[rowNumbe].Cells[2+i].Value = datajson["count"];
                                         progressBar1.PerformStep();
                                     }
                                 }
@@ -160,14 +160,15 @@ namespace HourlyStatistics
         }
 
         private void save_Click(object sender, EventArgs e)
-        {     
-            dialog.IsFolderPicker = true;
-            dialog.Multiselect = true;
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.InitialDirectory = Application.StartupPath;
+            saveFileDialog.Filter = "CSV|*.csv";
+            saveFileDialog.FileName = "Statistics " + DateTime.Now.ToString("dd.MM.yyyy HH.mm");
 
-            if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                FileInfo fil = new FileInfo(dialog.FileName + "\\" + date.Text + ".csv");
-
+                FileInfo fil = new FileInfo(saveFileDialog.FileName);
                 using (StreamWriter sw = fil.AppendText())
                 {
                     var headers = dataGridView1.Columns.Cast<DataGridViewColumn>();
@@ -180,7 +181,7 @@ namespace HourlyStatistics
                     {
                         var cells = row.Cells.Cast<DataGridViewCell>();
                         sw.WriteLine(string.Join(",", cells.Select(cell => "\"" + cell.Value + "\"").ToArray()));
-                    }                    
+                    }
                     sw.Close();
                 }
             }

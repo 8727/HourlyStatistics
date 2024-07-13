@@ -38,6 +38,7 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column26 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -75,7 +76,7 @@
             this.groupBox1.Controls.Add(this.ip);
             this.groupBox1.Location = new System.Drawing.Point(12, 2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(947, 59);
+            this.groupBox1.Size = new System.Drawing.Size(1017, 59);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
@@ -84,7 +85,7 @@
             this.save.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.save.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.save.Location = new System.Drawing.Point(788, 14);
+            this.save.Location = new System.Drawing.Point(858, 14);
             this.save.Name = "save";
             this.save.Size = new System.Drawing.Size(150, 34);
             this.save.TabIndex = 5;
@@ -96,7 +97,7 @@
             // 
             this.clear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.clear.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.clear.Location = new System.Drawing.Point(628, 14);
+            this.clear.Location = new System.Drawing.Point(698, 14);
             this.clear.Name = "clear";
             this.clear.Size = new System.Drawing.Size(150, 34);
             this.clear.TabIndex = 4;
@@ -108,7 +109,7 @@
             // 
             this.request.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.request.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.request.Location = new System.Drawing.Point(468, 14);
+            this.request.Location = new System.Drawing.Point(538, 14);
             this.request.Name = "request";
             this.request.Size = new System.Drawing.Size(150, 34);
             this.request.TabIndex = 3;
@@ -122,7 +123,7 @@
             this.date.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.date.Location = new System.Drawing.Point(210, 16);
             this.date.Name = "date";
-            this.date.Size = new System.Drawing.Size(189, 31);
+            this.date.Size = new System.Drawing.Size(180, 31);
             this.date.TabIndex = 2;
             this.date.Text = "31.12.2024";
             this.date.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -144,7 +145,7 @@
             this.progressBar1.Location = new System.Drawing.Point(12, 340);
             this.progressBar1.Maximum = 24;
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(947, 34);
+            this.progressBar1.Size = new System.Drawing.Size(1017, 34);
             this.progressBar1.Step = 1;
             this.progressBar1.TabIndex = 2;
             // 
@@ -157,6 +158,7 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
+            this.Column26,
             this.Column2,
             this.Column3,
             this.Column4,
@@ -185,7 +187,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.Size = new System.Drawing.Size(947, 267);
+            this.dataGridView1.Size = new System.Drawing.Size(1017, 267);
             this.dataGridView1.TabIndex = 3;
             // 
             // Column1
@@ -196,6 +198,15 @@
             this.Column1.Name = "Column1";
             this.Column1.ReadOnly = true;
             this.Column1.Width = 150;
+            // 
+            // Column26
+            // 
+            this.Column26.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Column26.FillWeight = 70F;
+            this.Column26.HeaderText = "Date";
+            this.Column26.Name = "Column26";
+            this.Column26.ReadOnly = true;
+            this.Column26.Width = 70;
             // 
             // Column2
             // 
@@ -393,7 +404,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(971, 386);
+            this.ClientSize = new System.Drawing.Size(1041, 386);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.groupBox1);
@@ -421,6 +432,7 @@
         private System.Windows.Forms.Button save;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column26;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
