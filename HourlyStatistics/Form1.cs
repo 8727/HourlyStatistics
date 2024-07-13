@@ -10,17 +10,14 @@ using System.Text.RegularExpressions;
 using System.Web.Script.Serialization;
 using System.Windows.Forms;
 
-
-
 namespace HourlyStatistics
 {
     public partial class Ui : Form
     {
-
         public Ui()
         {
             InitializeComponent();
-            date.Text = DateTime.Now.AddDays(-1).ToString("yyyy-MM-dd");
+            date.Text = DateTime.Now.AddDays(-1).ToString("d.M.yyyy");
             dataGridView1.Rows.Clear();
         }
 
@@ -31,15 +28,15 @@ namespace HourlyStatistics
             request.Enabled = false;
             clear.Enabled = false;
             save.Enabled = false;
-            
             progressBar1.Value = 0;
 
             DateTime scheduleDate;
-            if (DateTime.TryParseExact(date.Text, "yyyy-MM-dd", DateTimeFormatInfo.InvariantInfo, DateTimeStyles.None, out scheduleDate))
+            if (DateTime.TryParseExact(date.Text, "d.M.yyyy", DateTimeFormatInfo.InvariantInfo, DateTimeStyles.None, out scheduleDate))
             {
-                DateTime myDate = DateTime.ParseExact(date.Text + " 00:00:00", "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
+                DateTime myDate = DateTime.ParseExact(date.Text + " 00:00:00", "d.M.yyyy HH:mm:ss", CultureInfo.InvariantCulture);
                 if (myDate < DateTime.Now) 
                 {
+                    string getDate = myDate.ToString("yyyy-MM-dd");
                     Match match = Regex.Match(ip.Text, @"\b((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\.)){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))\b");
                     if (match.Success)
                     {
@@ -59,7 +56,7 @@ namespace HourlyStatistics
                                     string factoryNumber = datajson["unit"]["factoryNumber"];
                                     string serialNumber = datajson["certificate"]["serialNumber"];
                                     dataGridView1.Rows[rowNumbe].Cells[0].Value = serialNumber + " " + factoryNumber + " " + ip.Text;
-                                    dataGridView1.Rows[rowNumbe].Cells[1].Value = date.Text;
+                                    dataGridView1.Rows[rowNumbe].Cells[1].Value = myDate.ToString("dd-MM-yyyy");
                                 }
                             }
                             catch
@@ -89,8 +86,8 @@ namespace HourlyStatistics
                             {
                                 MessageBox.Show("Not a factor.", "IP unavailable.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             }
-                            string strDate = date.Text;
-                            string endDate = date.Text;
+                            string strDate = getDate;
+                            string endDate = getDate;
                             string str = "00";
                             string end = "01";
 
@@ -103,7 +100,7 @@ namespace HourlyStatistics
                                 }
                                 else
                                 {
-                                    DateTime newdate = DateTime.ParseExact(date.Text, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                                    DateTime newdate = DateTime.ParseExact(getDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
                                     endDate = newdate.AddDays(1).ToString("yyyy-MM-dd");
                                     end = "00";
                                 }
@@ -172,7 +169,7 @@ namespace HourlyStatistics
                 using (StreamWriter sw = fil.AppendText())
                 {
                     var headers = dataGridView1.Columns.Cast<DataGridViewColumn>();
-                    sw.WriteLine(string.Join(",", headers.Select(column => "\"" + column.HeaderText + "\"").ToArray()));
+                    sw.WriteLine(string.Join(";", headers.Select(column => "\"" + column.HeaderText + "\"").ToArray()));
                     sw.Close();
                 }
                 using (StreamWriter sw = fil.AppendText())
@@ -180,7 +177,7 @@ namespace HourlyStatistics
                     foreach (DataGridViewRow row in dataGridView1.Rows)
                     {
                         var cells = row.Cells.Cast<DataGridViewCell>();
-                        sw.WriteLine(string.Join(",", cells.Select(cell => "\"" + cell.Value + "\"").ToArray()));
+                        sw.WriteLine(string.Join(";", cells.Select(cell => "\"" + cell.Value + "\"").ToArray()));
                     }
                     sw.Close();
                 }
