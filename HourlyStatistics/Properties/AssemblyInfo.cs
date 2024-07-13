@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // Общие сведения об этой сборке предоставляются следующим набором
 // набора атрибутов. Измените значения этих атрибутов для изменения сведений,
 // связанных со сборкой.
-[assembly: AssemblyTitle("HourlyStatistics")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Hourly Statistics")]
+[assembly: AssemblyDescription("Vehicle registration statistics broken down by hour.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("HourlyStatistics")]
-[assembly: AssemblyCopyright("Copyright ©  2024")]
+[assembly: AssemblyCompany("8727.ru")]
+[assembly: AssemblyProduct("Hourly Statistics")]
+[assembly: AssemblyCopyright("Alex Li  ©  2024")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -35,9 +35,6 @@ namespace HourlyStatistics
 
             progressBar1.Value = 0;
 
-            int rows = dataGridView1.Rows.Count;
-            //label1.Text = rows.ToString();
-
             DateTime scheduleDate;
             if (DateTime.TryParseExact(date.Text, "yyyy-MM-dd", DateTimeFormatInfo.InvariantInfo, DateTimeStyles.None, out scheduleDate))
             {
@@ -53,6 +50,8 @@ namespace HourlyStatistics
                         PingReply pr = new Ping().Send(ip.Text, 5000);
                         if (pr.Status == IPStatus.Success)
                         {
+                            int rowNumbe = dataGridView1.Rows.Add();
+                            dataGridView1.FirstDisplayedScrollingRowIndex = rowNumbe;
                             try
                             {
                                 HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create($"http://{ip.Text}/unitinfo/api/unitinfo");
@@ -63,7 +62,7 @@ namespace HourlyStatistics
                                     var datajson = new JavaScriptSerializer().Deserialize<dynamic>(factorJson);
                                     factoryNumber = datajson["unit"]["factoryNumber"];
                                     serialNumber = datajson["certificate"]["serialNumber"];
-                                    dataGridView1.Rows[rows-1].Cells[0].Value = serialNumber + " " + factoryNumber + " " + ip.Text;
+                                    dataGridView1.Rows[rowNumbe].Cells[0].Value = serialNumber + " " + factoryNumber + " " + ip.Text;
                                 }
                             }
                             catch
@@ -96,11 +95,10 @@ namespace HourlyStatistics
                                 {
                                     factorJson = stream.ReadToEnd();
                                     var datajson = new JavaScriptSerializer().Deserialize<dynamic>(factorJson);
-                                    dataGridView1.Rows[rows-1].Cells[1+i].Value = datajson["count"];
+                                    dataGridView1.Rows[rowNumbe].Cells[1+i].Value = datajson["count"];
                                     progressBar1.PerformStep();
                                 }
                             }
-                            dataGridView1.Rows.Add();
                         }
                         else
                         {

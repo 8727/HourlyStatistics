@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ui));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.save = new System.Windows.Forms.Button();
             this.clear = new System.Windows.Forms.Button();
@@ -74,7 +75,7 @@
             this.groupBox1.Controls.Add(this.ip);
             this.groupBox1.Location = new System.Drawing.Point(12, 2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(938, 59);
+            this.groupBox1.Size = new System.Drawing.Size(947, 59);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
@@ -83,7 +84,7 @@
             this.save.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.save.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.save.Location = new System.Drawing.Point(779, 14);
+            this.save.Location = new System.Drawing.Point(788, 14);
             this.save.Name = "save";
             this.save.Size = new System.Drawing.Size(150, 34);
             this.save.TabIndex = 5;
@@ -95,7 +96,7 @@
             // 
             this.clear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.clear.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.clear.Location = new System.Drawing.Point(615, 14);
+            this.clear.Location = new System.Drawing.Point(628, 14);
             this.clear.Name = "clear";
             this.clear.Size = new System.Drawing.Size(150, 34);
             this.clear.TabIndex = 4;
@@ -107,7 +108,7 @@
             // 
             this.request.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.request.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.request.Location = new System.Drawing.Point(450, 14);
+            this.request.Location = new System.Drawing.Point(468, 14);
             this.request.Name = "request";
             this.request.Size = new System.Drawing.Size(150, 34);
             this.request.TabIndex = 3;
@@ -121,7 +122,7 @@
             this.date.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.date.Location = new System.Drawing.Point(210, 16);
             this.date.Name = "date";
-            this.date.Size = new System.Drawing.Size(180, 31);
+            this.date.Size = new System.Drawing.Size(189, 31);
             this.date.TabIndex = 2;
             this.date.Text = "31.12.2024";
             this.date.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -135,7 +136,7 @@
             this.ip.Name = "ip";
             this.ip.Size = new System.Drawing.Size(180, 31);
             this.ip.TabIndex = 1;
-            this.ip.Text = "10.5.127.30";
+            this.ip.Text = "10.5.127.x";
             this.ip.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // progressBar1
@@ -143,12 +144,13 @@
             this.progressBar1.Location = new System.Drawing.Point(12, 202);
             this.progressBar1.Maximum = 24;
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(938, 34);
+            this.progressBar1.Size = new System.Drawing.Size(947, 34);
             this.progressBar1.Step = 1;
             this.progressBar1.TabIndex = 2;
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AllowUserToResizeColumns = false;
             this.dataGridView1.AllowUserToResizeRows = false;
@@ -183,7 +185,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.Size = new System.Drawing.Size(938, 129);
+            this.dataGridView1.Size = new System.Drawing.Size(947, 129);
             this.dataGridView1.TabIndex = 3;
             // 
             // Column1
@@ -198,7 +200,7 @@
             // Column2
             // 
             this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column2.FillWeight = 32F;
+            this.Column2.FillWeight = 35F;
             this.Column2.HeaderText = "00";
             this.Column2.Name = "Column2";
             this.Column2.ReadOnly = true;
@@ -206,7 +208,7 @@
             // Column3
             // 
             this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column3.FillWeight = 32F;
+            this.Column3.FillWeight = 35F;
             this.Column3.HeaderText = "01";
             this.Column3.Name = "Column3";
             this.Column3.ReadOnly = true;
@@ -214,7 +216,7 @@
             // Column4
             // 
             this.Column4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column4.FillWeight = 32F;
+            this.Column4.FillWeight = 35F;
             this.Column4.HeaderText = "02";
             this.Column4.Name = "Column4";
             this.Column4.ReadOnly = true;
@@ -222,7 +224,7 @@
             // Column5
             // 
             this.Column5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column5.FillWeight = 32F;
+            this.Column5.FillWeight = 35F;
             this.Column5.HeaderText = "03";
             this.Column5.Name = "Column5";
             this.Column5.ReadOnly = true;
@@ -230,7 +232,7 @@
             // Column6
             // 
             this.Column6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column6.FillWeight = 32F;
+            this.Column6.FillWeight = 35F;
             this.Column6.HeaderText = "04";
             this.Column6.Name = "Column6";
             this.Column6.ReadOnly = true;
@@ -238,7 +240,7 @@
             // Column7
             // 
             this.Column7.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column7.FillWeight = 32F;
+            this.Column7.FillWeight = 35F;
             this.Column7.HeaderText = "05";
             this.Column7.Name = "Column7";
             this.Column7.ReadOnly = true;
@@ -246,7 +248,7 @@
             // Column8
             // 
             this.Column8.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column8.FillWeight = 32F;
+            this.Column8.FillWeight = 35F;
             this.Column8.HeaderText = "06";
             this.Column8.Name = "Column8";
             this.Column8.ReadOnly = true;
@@ -254,7 +256,7 @@
             // Column9
             // 
             this.Column9.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column9.FillWeight = 32F;
+            this.Column9.FillWeight = 35F;
             this.Column9.HeaderText = "07";
             this.Column9.Name = "Column9";
             this.Column9.ReadOnly = true;
@@ -262,7 +264,7 @@
             // Column10
             // 
             this.Column10.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column10.FillWeight = 32F;
+            this.Column10.FillWeight = 35F;
             this.Column10.HeaderText = "08";
             this.Column10.Name = "Column10";
             this.Column10.ReadOnly = true;
@@ -270,7 +272,7 @@
             // Column11
             // 
             this.Column11.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column11.FillWeight = 32F;
+            this.Column11.FillWeight = 35F;
             this.Column11.HeaderText = "09";
             this.Column11.Name = "Column11";
             this.Column11.ReadOnly = true;
@@ -278,7 +280,7 @@
             // Column12
             // 
             this.Column12.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column12.FillWeight = 32F;
+            this.Column12.FillWeight = 35F;
             this.Column12.HeaderText = "10";
             this.Column12.Name = "Column12";
             this.Column12.ReadOnly = true;
@@ -286,7 +288,7 @@
             // Column13
             // 
             this.Column13.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column13.FillWeight = 32F;
+            this.Column13.FillWeight = 35F;
             this.Column13.HeaderText = "11";
             this.Column13.Name = "Column13";
             this.Column13.ReadOnly = true;
@@ -294,7 +296,7 @@
             // Column14
             // 
             this.Column14.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column14.FillWeight = 32F;
+            this.Column14.FillWeight = 35F;
             this.Column14.HeaderText = "12";
             this.Column14.Name = "Column14";
             this.Column14.ReadOnly = true;
@@ -302,7 +304,7 @@
             // Column15
             // 
             this.Column15.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column15.FillWeight = 32F;
+            this.Column15.FillWeight = 35F;
             this.Column15.HeaderText = "13";
             this.Column15.Name = "Column15";
             this.Column15.ReadOnly = true;
@@ -310,7 +312,7 @@
             // Column16
             // 
             this.Column16.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column16.FillWeight = 32F;
+            this.Column16.FillWeight = 35F;
             this.Column16.HeaderText = "14";
             this.Column16.Name = "Column16";
             this.Column16.ReadOnly = true;
@@ -318,7 +320,7 @@
             // Column17
             // 
             this.Column17.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column17.FillWeight = 32F;
+            this.Column17.FillWeight = 35F;
             this.Column17.HeaderText = "15";
             this.Column17.Name = "Column17";
             this.Column17.ReadOnly = true;
@@ -326,7 +328,7 @@
             // Column18
             // 
             this.Column18.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column18.FillWeight = 32F;
+            this.Column18.FillWeight = 35F;
             this.Column18.HeaderText = "16";
             this.Column18.Name = "Column18";
             this.Column18.ReadOnly = true;
@@ -334,7 +336,7 @@
             // Column19
             // 
             this.Column19.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column19.FillWeight = 32F;
+            this.Column19.FillWeight = 35F;
             this.Column19.HeaderText = "17";
             this.Column19.Name = "Column19";
             this.Column19.ReadOnly = true;
@@ -342,7 +344,7 @@
             // Column20
             // 
             this.Column20.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column20.FillWeight = 32F;
+            this.Column20.FillWeight = 35F;
             this.Column20.HeaderText = "18";
             this.Column20.Name = "Column20";
             this.Column20.ReadOnly = true;
@@ -350,7 +352,7 @@
             // Column21
             // 
             this.Column21.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column21.FillWeight = 32F;
+            this.Column21.FillWeight = 35F;
             this.Column21.HeaderText = "19";
             this.Column21.Name = "Column21";
             this.Column21.ReadOnly = true;
@@ -358,7 +360,7 @@
             // Column22
             // 
             this.Column22.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column22.FillWeight = 32F;
+            this.Column22.FillWeight = 35F;
             this.Column22.HeaderText = "20";
             this.Column22.Name = "Column22";
             this.Column22.ReadOnly = true;
@@ -366,7 +368,7 @@
             // Column23
             // 
             this.Column23.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column23.FillWeight = 32F;
+            this.Column23.FillWeight = 35F;
             this.Column23.HeaderText = "21";
             this.Column23.Name = "Column23";
             this.Column23.ReadOnly = true;
@@ -374,7 +376,7 @@
             // Column24
             // 
             this.Column24.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column24.FillWeight = 32F;
+            this.Column24.FillWeight = 35F;
             this.Column24.HeaderText = "22";
             this.Column24.Name = "Column24";
             this.Column24.ReadOnly = true;
@@ -382,7 +384,7 @@
             // Column25
             // 
             this.Column25.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column25.FillWeight = 32F;
+            this.Column25.FillWeight = 35F;
             this.Column25.HeaderText = "23";
             this.Column25.Name = "Column25";
             this.Column25.ReadOnly = true;
@@ -391,14 +393,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(962, 246);
+            this.ClientSize = new System.Drawing.Size(971, 246);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.groupBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Ui";
-            this.Text = "HourlyStatistics";
+            this.Text = "Hourly Statistics";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
