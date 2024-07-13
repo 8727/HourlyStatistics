@@ -141,7 +141,7 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(12, 202);
+            this.progressBar1.Location = new System.Drawing.Point(12, 340);
             this.progressBar1.Maximum = 24;
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(947, 34);
@@ -185,7 +185,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.Size = new System.Drawing.Size(947, 129);
+            this.dataGridView1.Size = new System.Drawing.Size(947, 267);
             this.dataGridView1.TabIndex = 3;
             // 
             // Column1
@@ -393,7 +393,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(971, 246);
+            this.ClientSize = new System.Drawing.Size(971, 386);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.groupBox1);
@@ -401,6 +401,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Ui";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Hourly Statistics";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

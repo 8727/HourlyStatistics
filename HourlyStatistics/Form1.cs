@@ -44,9 +44,6 @@ namespace HourlyStatistics
                     Match match = Regex.Match(ip.Text, @"\b((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\.)){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))\b");
                     if (match.Success)
                     {
-                        string factorJson = "";
-                        string factoryNumber = "";
-                        string serialNumber = "";
                         PingReply pr = new Ping().Send(ip.Text, 5000);
                         if (pr.Status == IPStatus.Success)
                         {
@@ -58,11 +55,34 @@ namespace HourlyStatistics
                                 HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
                                 using (StreamReader stream = new StreamReader(resp.GetResponseStream(), Encoding.UTF8))
                                 {
-                                    factorJson = stream.ReadToEnd();
+                                    string factorJson = stream.ReadToEnd();
                                     var datajson = new JavaScriptSerializer().Deserialize<dynamic>(factorJson);
-                                    factoryNumber = datajson["unit"]["factoryNumber"];
-                                    serialNumber = datajson["certificate"]["serialNumber"];
+                                    string factoryNumber = datajson["unit"]["factoryNumber"];
+                                    string serialNumber = datajson["certificate"]["serialNumber"];
                                     dataGridView1.Rows[rowNumbe].Cells[0].Value = serialNumber + " " + factoryNumber + " " + ip.Text;
+                                }
+                            }
+                            catch
+                            {
+                                MessageBox.Show("Not a factor.", "IP unavailable.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+                            string factorZ = "%2B03%3A00";
+                            try
+                            {
+                                HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create($"http://{ip.Text}/systemmanager/api/Time/timezones/current");
+                                HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
+                                using (StreamReader stream = new StreamReader(resp.GetResponseStream(), Encoding.UTF8))
+                                {
+                                    string factorJson = stream.ReadToEnd();
+                                    var datajson = new JavaScriptSerializer().Deserialize<dynamic>(factorJson);
+                                    string factorZone = datajson["description"];
+                                    factorZone = factorZone.Remove(factorZone.LastIndexOf(")"));
+                                    factorZone = factorZone.Substring(factorZone.LastIndexOf("C") + 1);
+                                    string zone = factorZone[0] == '+' ? "%2B" : "%2D";
+                                    factorZone = factorZone.Substring(1);
+                                    string factorH = factorZone.Remove(factorZone.LastIndexOf(":"));
+                                    string factorM = factorZone.Substring(factorZone.LastIndexOf(":") + 1);
+                                    factorZ = zone + factorH + "%3A" + factorM;
                                 }
                             }
                             catch
@@ -88,12 +108,12 @@ namespace HourlyStatistics
                                     end = "00";
                                 }
 
-                                string url = $"http://{ip.Text}/archive/tracks/count?dateStart={strDate}T{str}%3A00%3A00%2B05%3A00&dateEnd={endDate}T{end}%3A00%3A00%2B05%3A00";
+                                string url = $"http://{ip.Text}/archive/tracks/count?dateStart={strDate}T{str}%3A00%3A00{factorZ}&dateEnd={endDate}T{end}%3A00%3A00{factorZ}";
                                 HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(url);
                                 HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
                                 using (StreamReader stream = new StreamReader(resp.GetResponseStream(), Encoding.UTF8))
                                 {
-                                    factorJson = stream.ReadToEnd();
+                                    string factorJson = stream.ReadToEnd();
                                     var datajson = new JavaScriptSerializer().Deserialize<dynamic>(factorJson);
                                     dataGridView1.Rows[rowNumbe].Cells[1+i].Value = datajson["count"];
                                     progressBar1.PerformStep();
