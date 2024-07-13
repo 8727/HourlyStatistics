@@ -414,6 +414,7 @@
             this.Name = "Ui";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Hourly Statistics";
+            this.Shown += new System.EventHandler(this.Ui_Shown);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
