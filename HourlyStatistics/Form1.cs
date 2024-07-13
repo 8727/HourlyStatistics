@@ -123,6 +123,7 @@ namespace HourlyStatistics
                                 catch
                                 {
                                     MessageBox.Show("Factor request error not responding.", "Timed out.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    progressBar1.PerformStep();
                                 }
                             }
                         }
