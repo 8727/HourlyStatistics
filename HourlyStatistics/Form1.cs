@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -154,6 +155,11 @@ namespace HourlyStatistics
                                             string factorJson = stream.ReadToEnd();
                                             var datajson = new JavaScriptSerializer().Deserialize<dynamic>(factorJson);
                                             dataGridView1.Rows[rowNumbe].Cells[2 + i].Value = datajson["count"];
+                                            if (datajson["count"] < 1 ) 
+                                            { 
+                                                dataGridView1.Rows[rowNumbe].Cells[2 + i].Style.BackColor = Color.Red;
+                                        }
+                                            
                                             progressBar1.PerformStep();
                                         }
                                     }
